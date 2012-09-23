@@ -1,6 +1,23 @@
 //
 //  XMLReader.m
 //
+//    Permission is hereby granted, free of charge, to any person obtaining a copy
+//    of this software and associated documentation files (the "Software"), to deal
+//    in the Software without restriction, including without limitation the rights
+//    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//    copies of the Software, and to permit persons to whom the Software is
+//    furnished to do so, subject to the following conditions:
+//
+//    The above copyright notice and this permission notice shall be included in
+//    all copies or substantial portions of the Software.
+//
+//    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//    THE SOFTWARE.
 
 #import "XMLReader.h"
 
@@ -154,7 +171,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
 #pragma mark NSXMLParserDelegate methods
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
-{
+{    
     // Get the dictionary for the current level in the stack
     NSMutableDictionary *parentDict = [dictionaryStack lastObject];
     
@@ -164,7 +181,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     // Initialize child dictionary with the attributes, prefixed with '@'
     for (NSString *key in attributeDict) {
         [childDict setValue:[attributeDict objectForKey:key]
-                     forKey:[NSString stringWithFormat:@"@%@", key]];
+                     forKey:[NSString stringWithFormat:@"_%@", key]];
     }
     
     // If there's already an item for this key, it means we need to create an array
@@ -247,7 +264,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     else if ([dictInProgress count] == 0)
     {
         NSMutableDictionary *parentDict = [dictionaryStack lastObject];
-        [parentDict removeObjectForKey:elementName];
+        [parentDict setObject:@"" forKey:elementName];
     }
 }
 
