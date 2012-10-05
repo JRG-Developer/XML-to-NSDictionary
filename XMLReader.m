@@ -156,15 +156,15 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     BOOL success = [parser parse];
 	[parser release];
     
+    NSDictionary *resultDict = nil;
+    
     // Return the stack's root dictionary on success
     if (success)
     {
-        NSDictionary *resultDict = [dictionaryStack objectAtIndex:0];
-        
-        return resultDict;
+        resultDict = [dictionaryStack objectAtIndex:0];
     }
     
-    return nil;
+    return resultDict;
 }
 
 #pragma mark -
