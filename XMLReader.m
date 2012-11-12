@@ -178,10 +178,16 @@ NSString *const kXMLReaderTextNodeKey = @"text";
     // Create the child dictionary for the new element
     NSMutableDictionary *childDict = [NSMutableDictionary dictionary];
 
-    // Initialize child dictionary with the attributes, prefixed with '@'
-    for (NSString *key in attributeDict) {
-        [childDict setValue:[attributeDict objectForKey:key]
-                     forKey:[NSString stringWithFormat:@"_%@", key]];
+    // Initialize child dictionary with the attributes, prefixed with '_'
+    for (NSString *key in attributeDict)
+    {
+        NSString *valToSet = [attributeDict objectForKey:key];
+        
+        if (![valToSet isEqualToString:@"null"])
+        {
+            [childDict setValue:valToSet
+                         forKey:[NSString stringWithFormat:@"_%@", key]];
+        }
     }
     
     // If there's already an item for this key, it means we need to create an array
