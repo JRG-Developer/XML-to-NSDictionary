@@ -186,7 +186,7 @@ NSString *const kXMLReaderTextNodeKey = @"text";
         if (![valToSet isEqualToString:@"null"])
         {
             [childDict setValue:valToSet
-                         forKey:[NSString stringWithFormat:@"_%@", key]];
+                         forKey:[NSString stringWithFormat:@"%@_%@", elementName, key]];
         }
     }
     
